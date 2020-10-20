@@ -68,7 +68,6 @@ class Raycaster(object):
             dist += 5
 
     def render(self):
-        try:
             halfWidth = int(self.width / 2)
             halfHeight = int(self.height / 2)
 
@@ -102,8 +101,7 @@ class Raycaster(object):
                 self.screen.set_at( (halfWidth, i), BLACK)
                 self.screen.set_at( (halfWidth+1, i), BLACK)
                 self.screen.set_at( (halfWidth-1, i), BLACK)
-        except:
-            pass
+       
 
 
 pygame.init()
@@ -126,39 +124,53 @@ while isRunning:
             if ev.key == pygame.K_ESCAPE:
                 isRunning = False
             elif ev.key == pygame.K_w:
-                try:
-                    r.player['x'] += cos(r.player['angle'] * pi / 180) * r.stepSize
-                    r.player['y'] += sin(r.player['angle'] * pi / 180) * r.stepSize
-                except:
-                    pass
+                    newX = r.player['x'] + cos(r.player['angle'] * pi / 180) * r.stepSize
+                    newY = r.player['y'] + sin(r.player['angle'] * pi / 180) * r.stepSize
+
+                    i = int(newX/r.blocksize)
+                    j = int(newY/r.blocksize)
+
+                    if r.map[j][i] ==' ':
+                        r.player['x'] = newX
+                        r.player['y'] = newY
+                    
             elif ev.key == pygame.K_s:
-                try:
-                    r.player['x'] -= cos(r.player['angle'] * pi / 180) * r.stepSize
-                    r.player['y'] -= sin(r.player['angle'] * pi / 180) * r.stepSize
-                except:
-                    pass
+                    newX = r.player['x'] - cos(r.player['angle'] * pi / 180) * r.stepSize
+                    newY = r.player['y'] - sin(r.player['angle'] * pi / 180) * r.stepSize
+
+                    i = int(newX/r.blocksize)
+                    j = int(newY/r.blocksize)
+
+                    if r.map[j][i] ==' ':
+                        r.player['x'] = newX
+                        r.player['y'] = newY
+
             elif ev.key == pygame.K_a:
-                try:
-                    r.player['x'] -= cos((r.player['angle'] + 90) * pi / 180) * r.stepSize
-                    r.player['y'] -= sin((r.player['angle'] + 90) * pi / 180) * r.stepSize
-                except:
-                    pass
+                    newX = r.player['x'] - cos((r.player['angle'] + 90) * pi / 180) * r.stepSize
+                    newY = r.player['y'] - sin((r.player['angle'] + 90) * pi / 180) * r.stepSize
+
+                    i = int(newX/r.blocksize)
+                    j = int(newY/r.blocksize)
+
+                    if r.map[j][i] ==' ':
+                        r.player['x'] = newX
+                        r.player['y'] = newY
+
             elif ev.key == pygame.K_d:
-                try:
-                    r.player['x'] += cos((r.player['angle'] + 90) * pi / 180) * r.stepSize
-                    r.player['y'] += sin((r.player['angle'] + 90) * pi / 180) * r.stepSize
-                except:
-                    pass
+                    newX = r.player['x'] + cos((r.player['angle'] + 90) * pi / 180) * r.stepSize
+                    newY = r.player['y'] + sin((r.player['angle'] + 90) * pi / 180) * r.stepSize
+
+                    i = int(newX/r.blocksize)
+                    j = int(newY/r.blocksize)
+
+                    if r.map[j][i] ==' ':
+                        r.player['x'] = newX
+                        r.player['y'] = newY
+
             elif ev.key == pygame.K_q:
-                try:
                     r.player['angle'] -= 5
-                except:
-                    pass
             elif ev.key == pygame.K_e:
-                try:
                     r.player['angle'] += 5
-                except:
-                    pass
 
     screen.fill(BACKGROUND)
     r.render()
